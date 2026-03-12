@@ -43,3 +43,76 @@ DB_NAME=teslodb ## 'esto es el nombre de la base de datos que usaras'
 ```
 
 3. una vez qeu tengas todo eso ejecuta el comando: docker-compose up -d ( recuerda que el docker debe estar abierto y no tener errores)
+
+## siguiente proceso:
+
+
+ ### 1. abrir docker
+
+ una vez el docker abierto verificar si al hacer el comando que indicamos en el inicio se ha creado el contenedor con el nombre que le pusimos en el docker-compose.yml.
+
+ ### 2. Abrir tablePlus o DBeaver
+
+ una vez abierto el tablePlus o DBeaver, crear una nueva conexion a la base de datos:
+
+ ```
+ Host: localhost
+ Port: 5432
+ User: postgres
+ Password: [PASSWORD]
+ Database: teslodb
+ ```
+
+estos datos tienes que ponerlo en tableplus o dbeaver para verficar si se llega a conectar correctamente ('importante verificar que el docker este abierto y no tenga errores, tambien revisar tu archivo dockercompose.yml y el .env porque ahi defines los datos que vas a usar')
+
+### 3. variables de entorno en nest
+
+1. necesitas installar 'npm add @nestjs/config' (esto es para instalar las dependencias de las variables de entorno)
+
+ Una vez instalado la dependencias ve a tu archivo app.module.ts y agrega lo siguiente:
+
+ ```typescript
+ import { Module } from '@nestjs/common';
+ import { ConfigModule } from '@nestjs/config';
+
+ @Module({
+  imports: [ConfigModule.forRoot()], ## 'esto es para importar las variables de entorno es importante'
+  controllers: [],
+  providers: [],
+})
+export class AppModule { }
+
+ ```
+
+2. una vez instalado y configurado para tu variable de entorno, ahora para conectar a base de datos necesitamos instalar 'npm add @nestjs/typeorm typeorm pg' (esto es para instalar las dependencias de typeorm y postgres) 'npm add @nestjs/typeorm typeorm pg'
+
+ -Despues de instalar eso nos vamos nuevamente a nuestro archivo app.module.ts y agregamos lo siguiente:
+
+ ```typescript
+ import { Module } from '@nestjs/common';
+ import { ConfigModule } from '@nestjs/config';
+ import { TypeOrmModule } from '@nestjs/typeorm';
+
+ @Module({
+  imports: [ConfigModule.forRoot(), TypeOrmModule.forRoot({
+    type: 'postgres',
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+  })],
+  controllers: [],
+  providers: [],
+})
+export class AppModule { }
+```
+
+### 4 una vez hecho todo esto continuaremos con el entity pero antes usaremos el atajo de nest para que nos cree archivos rapidamente con el comando ' nest g res products --no-spec' se escoge en rest api
+
+  ahora veras una carpeta creada ahi estara entity  pero tu tendras que importar :
+
+  @Entity()
+  export class Product {}
+
+  
