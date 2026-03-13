@@ -12,8 +12,21 @@ export class Product {
     //unique es para que no se repita el titulo
     title: String;
 
+    @Column('text', { unique: true })
     description: String;
 
+
+    @Column('float')
     price: Number;
 
+    @Column('text', { unique: true })
+    slug: String;
+
+
+
+    @Column('float')
+    stock: Number;
+
+    @Column('text', { array: true })  //arreglo de strings
+    sizes: String[];
 }

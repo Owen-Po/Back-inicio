@@ -116,3 +116,23 @@ export class AppModule { }
   export class Product {}
 
   
+
+despues de importar , vas a decorar tus entitys con typeorm 
+
+
+### realizar pruebas con el postman y verificar main.ts , para que agregues un globalprefix 
+
+
+### despues vamos a la carpeta dto y instalamos class validator y class transform ( npm 'si en caso usas npm i class-validator class-transformer')
+
+aca vamos a configurar el dto , es decir ahi vamos a configurar la data que estamos esperando de los usuarios , despues de ese paso decoramos con lo que importamos, leer el archivo create-product.dto.ts para ver como se configura.
+
+terminando todo el testeo nos vamos a postman para verificar todo.
+
+
+### despues de testear (' vamos a revisar los controllers y services para usar el @injectable )
+
+
+aca unicamente nos vamos a service para mejorar la logica ya que de por si nest nos ayuda a crearlo rapidamente pero solo es por defautl
+
+
